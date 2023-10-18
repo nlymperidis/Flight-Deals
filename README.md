@@ -1,5 +1,5 @@
 # Flight Price Tracker
-Flight Price Tracker is a Python application that helps you find the best flight deals from your specified origin city to various destinations. It regularly checks for flight prices and sends notifications when it finds a flight with a lower price than previously recorded.
+Flight Price Tracker is a Python application that helps you find the best flight deals from your specified origin city to various destinations. It checks for flight prices and sends notifications when it finds a flight with a lower price than previously recorded.
 
 ## Getting Started
 
