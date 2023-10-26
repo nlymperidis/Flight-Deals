@@ -22,6 +22,8 @@ if sheet_data[0]["iataCode"] == "":
 date_from = (datetime.now() + timedelta(days=1)).strftime("%d/%m/%Y")
 data_to = (datetime.now() + timedelta(days=6 * 30)).strftime("%d/%m/%Y")
 
+send_notif = input("Do you want to send sms/mail? Y/N: ")
+
 for destination in sheet_data:
     flight = flight_search.check_flights(
         ORIGIN_CITY_CODE,
@@ -30,22 +32,27 @@ for destination in sheet_data:
         data_to
     )
     try:
+
         if flight.price < destination["lowestPrice"]:
-            message = (f"Low price alert!\n\n "
+            message = (f"Low price alert!\n"
                        f"Only {flight.price}€ "
                        f"to fly from {flight.origin_city}-{flight.origin_airport} "
                        f"to {flight.destination_city}-{flight.destination_airport}, "
                        f"from {flight.out_date} to {flight.return_date}.")
-            if flight.stop_overs > 0:
-                message += f"\nFlight has {flight.stop_overs} stop over, via {flight.via_city}"
-            # ----------- SEND MESSAGE ------------ #
-            notification_manager.send_sms(message)
 
-            # ----------- SEND MAIL --------------- #
-            message_mail = (f"Subject:Low price alert!\n\n Only {flight.price}€ "
-                            f"to fly from {flight.origin_city}-{flight.origin_airport} "
-                            f"to {flight.destination_city}-{flight.destination_airport}, "
-                            f"from {flight.out_date} to {flight.return_date}.")
-            notification_manager.send_emails(message_mail)
+            if send_notif == ("Y" or "y"):
+                if flight.stop_overs > 0:
+                    message += f"\nFlight has {flight.stop_overs} stop over, via {flight.via_city}"
+                # ----------- SEND MESSAGE ------------ #
+                notification_manager.send_sms(message)
+
+                # ----------- SEND MAIL --------------- #
+                message_mail = f"Subject:{message}"
+                notification_manager.send_emails(message_mail)
+            else:
+                print(f"{message}")
+        else:
+            print("There are no cheaper flights")
+
     except AttributeError:
         continue
