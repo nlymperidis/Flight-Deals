@@ -1,5 +1,5 @@
 # Flight Price Tracker
-Flight Price Tracker is a Python application that helps you find the best flight deals from your specified origin city to various destinations. It regularly checks for flight prices and sends notifications when it finds a flight with a lower price than previously recorded.
+Flight Price Tracker is a Python application that helps you find the best flight deals from your specified origin city to various destinations. It checks for flight prices and sends notifications when it finds a flight with a lower price than previously recorded.
 
 ## Getting Started
 
@@ -14,20 +14,20 @@ To get started with this project, follow the instructions below:
     After that connect the sheet to https://sheety.co and set your sheety user and bearer in the `data_manager.py` file.
   - Notification services (https://www.twilio.com/): Configure the notification methods you intend to use (SMS, email) in the `notification_manager.py` file.
 
-Usage
+#### Usage
 The application loads destination data from a spreadsheet.
 If you don't know the IATA codes for destinations, it retrieves them and updates the spreadsheet.
 It then checks for flight prices from your specified origin city to these destinations for a range of dates.
 If a lower price is found, it sends notifications via SMS and email.
 
-Customization
+#### Customization
 You can customize this project for your specific needs:
 
 Modify the data_manager.py file to use your own spreadsheet format or data source.
 Customize the notification methods and messages in the notification_manager.py file.
 Adjust the criteria for sending price alerts in the main.py file.
 
-Acknowledgments
+#### Acknowledgments
 This project was created as a learning exercise and is not affiliated with any flight data providers or notification services.
 
 
