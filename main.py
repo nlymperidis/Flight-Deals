@@ -12,13 +12,14 @@ notification_manager = NotificationManager()
 sheet_data = data_manager.get_destination_data()
 print(sheet_data)
 
-# Running for the first time and don't know the iataCodes
-if sheet_data[0]["iataCode"] == "":
-    for row in sheet_data:
+# Running for the first time and don't know the iataCodes or some are missing
+for row in sheet_data:
+    if row["iataCode"] == "":
         row["iataCode"] = flight_search.get_destination_code(row["city"])
-    data_manager.destination_data = sheet_data
-    data_manager.update_destination_codes()
+data_manager.destination_data = sheet_data
+data_manager.update_destination_codes()
 
+# The original date window of search is 6 months
 date_from = (datetime.now() + timedelta(days=1)).strftime("%d/%m/%Y")
 data_to = (datetime.now() + timedelta(days=6 * 30)).strftime("%d/%m/%Y")
 
